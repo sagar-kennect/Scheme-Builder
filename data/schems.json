@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Scheme 1 ",
+    "id": "1001",
+    "displayName": "Scheme Display Name",
+    "type": "normal",
+    "benefits": [
+      {
+        "name": "Benefit Name 1",
+        "displayName": "Benefit Display Name 1",
+        "type": "fixed",
+        "upperValue": 100,
+        "lowerValue": 50,
+        "id": "BENI10001"
+      },
+      {
+        "name": "Benefit Name 2",
+        "displayName": "Benefit Display Name 2",
+        "type": "dynamic",
+        "upperValue": 200,
+        "lowerValue": 600,
+        "id": "BENI10002"
+      }
+    ],
+    "slabs": [
+      {
+        "upperValue": 500,
+        "lowerValue": 250,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      },
+      {
+        "upperValue": 1000,
+        "lowerValue": 501,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      }
+    ]
+  },
+  {
+    "name": "Scheme 2",
+    "id": "1001",
+    "displayName": "Scheme Display Name",
+    "type": "normal",
+    "benefits": [
+      {
+        "name": "Benefit Name 1",
+        "displayName": "Benefit Display Name 1",
+        "type": "fixed",
+        "upperValue": 100,
+        "lowerValue": 50,
+        "id": "BENI10001"
+      },
+      {
+        "name": "Benefit Name 2",
+        "displayName": "Benefit Display Name 2",
+        "type": "dynamic",
+        "upperValue": 200,
+        "lowerValue": 600,
+        "id": "BENI10002"
+      }
+    ],
+    "slabs": [
+      {
+        "upperValue": 500,
+        "lowerValue": 250,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      },
+      {
+        "upperValue": 1000,
+        "lowerValue": 501,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      }
+    ]
+  },
+  {
+    "name": "Scheme 3",
+    "id": "1001",
+    "displayName": "Scheme Display Name",
+    "type": "normal",
+    "benefits": [
+      {
+        "name": "Benefit Name 1",
+        "displayName": "Benefit Display Name 1",
+        "type": "fixed",
+        "upperValue": 100,
+        "lowerValue": 50,
+        "id": "BENI10001"
+      },
+      {
+        "name": "Benefit Name 2",
+        "displayName": "Benefit Display Name 2",
+        "type": "dynamic",
+        "upperValue": 200,
+        "lowerValue": 600,
+        "id": "BENI10002"
+      }
+    ],
+    "slabs": [
+      {
+        "upperValue": 500,
+        "lowerValue": 250,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      },
+      {
+        "upperValue": 1000,
+        "lowerValue": 501,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      }
+    ]
+  }
+]
