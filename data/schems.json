@@ -1,9 +1,9 @@
 [
   {
-    "name": "Scheme 1 ",
+    "name": "Scheme_1 ",
     "id": "1001",
-    "displayName": "Scheme Display Name",
-    "type": "normal",
+    "displayName": "1st Milestone visibility",
+    "type": "Normal",
     "benefits": [
       {
         "name": "Benefit Name 1",
@@ -37,9 +37,9 @@
   },
   {
     "name": "Scheme 2",
-    "id": "1001",
+    "id": "1002",
     "displayName": "Scheme Display Name",
-    "type": "normal",
+    "type": "KPI",
     "benefits": [
       {
         "name": "Benefit Name 1",
@@ -73,9 +73,45 @@
   },
   {
     "name": "Scheme 3",
-    "id": "1001",
+    "id": "1003",
     "displayName": "Scheme Display Name",
-    "type": "normal",
+    "type": "Normal",
+    "benefits": [
+      {
+        "name": "Benefit Name 1",
+        "displayName": "Benefit Display Name 1",
+        "type": "fixed",
+        "upperValue": 100,
+        "lowerValue": 50,
+        "id": "BENI10001"
+      },
+      {
+        "name": "Benefit Name 2",
+        "displayName": "Benefit Display Name 2",
+        "type": "dynamic",
+        "upperValue": 200,
+        "lowerValue": 600,
+        "id": "BENI10002"
+      }
+    ],
+    "slabs": [
+      {
+        "upperValue": 500,
+        "lowerValue": 250,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      },
+      {
+        "upperValue": 1000,
+        "lowerValue": 501,
+        "benefitsIds": ["BENI10001", "BENI10002"]
+      }
+    ]
+  },
+  {
+    "name": "Scheme 4",
+    "id": "1004",
+    "displayName": "Scheme Display Name",
+    "type": "KPI",
     "benefits": [
       {
         "name": "Benefit Name 1",

@@ -13,6 +13,7 @@
       expand-on-hover
       class="bg-white"
       theme="dark"
+      color="blue-grey lighten-5"
       permanent
       rail
     >
