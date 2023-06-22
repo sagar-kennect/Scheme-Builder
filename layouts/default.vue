@@ -19,9 +19,21 @@
     >
       <v-spacer></v-spacer>
       <v-list nav>
-        <v-list-item> <v-icon :icon="mdiAccount"></v-icon></v-list-item>
-        <v-list-item> <v-icon :icon="mdiAccount"></v-icon></v-list-item>
-        <v-list-item> <v-icon :icon="mdiAccount"></v-icon></v-list-item>
+        <v-list-item>
+          <nuxt-link to="/">
+            <div style="overflow: hidden; height: 20px">
+              <v-icon class="mr-3" :icon="mdiAccount"></v-icon>Scheme Builder
+            </div>
+          </nuxt-link>
+        </v-list-item>
+
+        <v-list-item>
+          <nuxt-link to="/github">
+            <div style="overflow: hidden; height: 20px">
+              <v-icon class="mr-3" :icon="mdiGithub"></v-icon>Git Hub Tracker
+            </div>
+          </nuxt-link>
+        </v-list-item>
       </v-list>
       <v-spacer></v-spacer>
     </v-navigation-drawer>
@@ -44,6 +56,7 @@ import {
   mdiChevronLeft,
   mdiChevronRight,
   mdiRepeat,
+  mdiGithub,
 } from "@mdi/js";
 import CSnackbar from "~~/components/feedback/c-snackbar.vue";
 
@@ -69,6 +82,7 @@ export default {
       mdiChevronLeft,
       mdiChevronRight,
       mdiRepeat,
+      mdiGithub,
     };
   },
   components: { CSnackbar },
