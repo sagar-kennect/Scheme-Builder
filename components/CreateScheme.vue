@@ -1,50 +1,67 @@
 <template>
-  <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
-          Click Me
-        </v-btn>
-      </template>
+  <v-card>
+    <v-card-title class="text-h5 grey lighten-2 mb-4">
+      Crete Scheme
+    </v-card-title>
 
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Privacy Policy
-        </v-card-title>
+    <v-form @submit.prevent class="px-3 py-4">
+      <v-text-field
+        density="compact"
+        variant="outlined"
+        name="name"
+        @input="handelInputChange"
+        placeholder="Scheme Name"
+      ></v-text-field>
+      <v-text-field
+        density="compact"
+        variant="outlined"
+        name="displayName"
+        @input="handelInputChange"
+        placeholder="Scheme Name"
+      ></v-text-field>
+      <v-select
+        variant="outlined"
+        v-model="selectedValue"
+        label="Select"
+        :items="['normal', 'kpi']"
+        density="compact"
+      ></v-select
+      ><v-btn type="submit" class="mt-2" @click="emitEvent">Submit</v-btn>
+    </v-form>
 
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </v-card-text>
+    <!-- <v-divider></v-divider> -->
 
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false"> I accept </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+    <!-- <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn class="bg-blue" text > I accept </v-btn>
+    </v-card-actions> -->
+  </v-card>
 </template>
 
 <script>
 export default {
-  props: {
-    isOpen: {
-      type: Boolean,
-      required: true,
-    },
-  },
   data() {
     return {
-      dialog: this.isOpen,
+      dialogVisible: true,
+      selectedValue: "",
+      newScheme: {},
     };
+  },
+  methods: {
+    emitEvent() {
+      if (this.newScheme.name == undefined) {
+        alert("Please fill all Sections");
+      } else {
+        this.newScheme = { ...this.newScheme, type: this.selectedValue };
+        this.$emit("child-event", this.newScheme);
+      }
+    },
+    handelInputChange($event) {
+      this.newScheme = {
+        ...this.newScheme,
+        [event.target.name]: event.target.value,
+      };
+    },
   },
 };
 </script>

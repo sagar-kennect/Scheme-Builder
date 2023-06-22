@@ -119,7 +119,11 @@
                           </v-icon>
                           <v-icon class="action-icon" :icon="mdiPencilOutline">
                           </v-icon>
-                          <v-icon class="action-icon" :icon="mdiContentCopy">
+                          <v-icon
+                            class="action-icon"
+                            :icon="mdiContentCopy"
+                            @click="handleCopyScheme(item)"
+                          >
                           </v-icon>
                           <v-icon class="action-icon" :icon="mdiDotsVertical">
                           </v-icon>
@@ -145,7 +149,9 @@
       </v-window>
     </v-card>
 
-    <CreateScheme :isOpen="createSchemeDialog" />
+    <v-dialog v-model="createSchemeDialog" width="500"
+      ><CreateScheme @child-event="handleChildEvent" />
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -198,6 +204,7 @@ export default {
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     },
+
     handelFilter(event) {
       this.selectedValue = event.target.getAttribute("value");
       console.log(this.selectedValue);
@@ -210,6 +217,18 @@ export default {
         this.tableData = schemeData.filter(
           (item) => item.type.toLowerCase() == this.selectedValue
         );
+      }
+    },
+    handleChildEvent(payload) {
+      (this.createSchemeDialog = false), this.tableData.push(payload);
+    },
+    async handleCopyScheme(data) {
+      const str = JSON.stringify(data);
+      try {
+        await navigator.clipboard.writeText(str);
+        alert("Object copied to clipboard!");
+      } catch (err) {
+        console.error("Failed to copy object: ", err);
       }
     },
   },
