@@ -115,7 +115,11 @@
                           <p class="text-caption">{{ item.type }}</p>
                         </div>
                         <div class="ml-10 d-flex" style="gap: 10px">
-                          <v-icon class="action-icon" :icon="mdiEyeOutline">
+                          <v-icon
+                            @click="handelAddNewTab(item)"
+                            class="action-icon"
+                            :icon="mdiEyeOutline"
+                          >
                           </v-icon>
                           <v-icon class="action-icon" :icon="mdiPencilOutline">
                           </v-icon>
