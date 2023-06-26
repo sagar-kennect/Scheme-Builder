@@ -3,7 +3,6 @@
     <v-card-title class="text-h5 grey lighten-2 mb-4">
       Crete Scheme
     </v-card-title>
-
     <v-form @submit.prevent class="px-3 py-4">
       <v-text-field
         density="compact"
@@ -26,15 +25,10 @@
         :items="['normal', 'kpi']"
         density="compact"
       ></v-select
-      ><v-btn type="submit" class="mt-2" @click="emitEvent">Submit</v-btn>
+      ><v-btn type="submit" class="mt-2 bg-blue" @click="emitEvent"
+        >Submit</v-btn
+      >
     </v-form>
-
-    <!-- <v-divider></v-divider> -->
-
-    <!-- <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn class="bg-blue" text > I accept </v-btn>
-    </v-card-actions> -->
   </v-card>
 </template>
 

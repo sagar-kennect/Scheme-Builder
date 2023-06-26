@@ -29,22 +29,19 @@
       </li>
     </ul> -->
     <div class="text-subtitle-2 mt-4 mb-2">Accordion</div>
-
-    <v-expansion-panels variant="accordion">
+    <v-expansion-panels v-model="panel" multiple>
       <v-expansion-panel
         v-for="(yearIssues, year) in groupedIssues"
         :key="year"
       >
-        <template #title>
-          <span>{{ year }}</span>
-        </template>
-        <template #content>
-          <ul>
-            <li v-for="issue in yearIssues" :key="issue.id">
-              {{ issue.title }}
-            </li>
-          </ul>
-        </template>
+        <v-expansion-panel-title>{{ year }}</v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <p v-for="issue in yearIssues" :key="issue.id">
+            <!-- {{ issue.title }} -->
+            {{ issue.created_at }}
+            <!-- {{ getMonth(issue?.created_at) }} -->
+          </p>
+        </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
 
@@ -56,26 +53,86 @@
         </li>
       </ul>
     </div> -->
+    <div variant="outlined" class="mt-10 px-5">
+      <div class="d-flex justify-end align-center text-caption">
+        <select @change="handelSelectPages" class="mr-2" style="outline: none">
+          <option :value="result.length">All</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <p class="mr-2">Result of {{ result.length }}</p>
+      </div>
+    </div>
+    <v-table v-if="result.length !== 0">
+      <thead>
+        <tr>
+          <th>
+            <div class="text-left d-flex item-center">
+              Number
+              <v-icon
+                :icon="mdiArrowDownThin"
+                class="ml-1"
+                @click="handelToggleSort"
+                :style="`${sort ? 'transform: rotate(180deg)' : ''}`"
+              >
+              </v-icon>
+            </div>
+          </th>
+          <th class="text-left">Title Of Issue</th>
+          <th class="text-left">Created At</th>
+          <th class="text-left">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in result.slice(start, resultPerPage)" :key="item.name">
+          <td>{{ item.number }}</td>
+          <td class="text-uppercase">{{ item.title }}</td>
+          <td>{{ item.created_at }}</td>
+          <td>
+            <p
+              :class="`px-2  d-flex justify-center ${
+                item.state == 'open' ? 'bg-green' : 'bg-gray'
+              }  rounded-xl py-1`"
+            >
+              {{ item.state }}
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import { mdiArrowDownThin } from "@mdi/js";
 
 export default {
   data() {
     return {
-      username: "",
-      repo: "",
+      mdiArrowDownThin,
+      username: "freeCodeCamp",
+      repo: "freeCodeCamp",
       repository: null,
       allIssues: [],
       groupedIssues: {},
+      panel: [],
+      itemsPerPage: 5,
+      // Pagination, sort ,filter
+      sort: false,
+      resultPerPage: 5,
+      start: 0,
+      end: 0,
+      result: [],
     };
   },
   methods: {
     async getAllIssues() {
-      const owner = "twitter";
-      const repo = "scalding";
+      const owner = this.username;
+      const repo = this.repo;
       const perPage = 100;
       let page = 1;
 
@@ -100,7 +157,7 @@ export default {
             page++;
           }
         }
-
+        this.result = this.allIssues;
         console.log(this.allIssues);
         this.groupIssuesByYear();
       } catch (error) {
@@ -117,6 +174,31 @@ export default {
         groups[createdYear].push(issue);
         return groups;
       }, {});
+
+      // console.log(this.groupedIssues);
+    },
+
+    groupIssuesByMonth(year) {
+      console.log();
+    },
+
+    getMonth(dateString) {
+      const date = new Date(dateString);
+      const month = date.toLocaleString("default", { month: "long" });
+      console.log(month);
+    },
+    handelToggleSort() {
+      this.sort = !this.sort;
+
+      if (this.sort) {
+        this.result = this.result?.sort((a, b) => a.number - b.number);
+      } else {
+        this.result = this.result?.sort((a, b) => b.number - a.number);
+      }
+    },
+    handelSelectPages($event) {
+      console.log(event.target.value);
+      this.resultPerPage = event.target.value;
     },
   },
 };
