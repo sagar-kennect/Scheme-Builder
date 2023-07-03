@@ -54,9 +54,11 @@
       </ul>
     </div> -->
     <div variant="outlined" class="mt-10 px-5">
-      <div class="d-flex justify-end align-center text-caption">
-        <select @change="handelSelectPages" class="mr-2" style="outline: none">
-          <option :value="result.length">All</option>
+      <div
+        class="d-flex justify-end align-center text-caption"
+        v-if="result.length !== 0"
+      >
+        <select @change="handelSelectPages" class="mr-1" style="outline: none">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>

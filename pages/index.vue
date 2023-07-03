@@ -34,7 +34,7 @@
       </v-tabs>
     </v-card>
     <p class="my-4 text-caption">Scheme Set > {{ tab }}</p>
-    <v-card class="h-screen">
+    <v-card class="h-screen lighten-5">
       <v-window v-model="tab">
         <v-window-item value="Scheme Setting">
           <v-container fluid>Scheme Setting</v-container>
@@ -152,7 +152,6 @@
         </v-window-item>
       </v-window>
     </v-card>
-
     <v-dialog v-model="createSchemeDialog" width="500"
       ><CreateScheme @child-event="handleChildEvent" />
     </v-dialog>
@@ -187,19 +186,33 @@ export default {
   }),
   watch: {
     tab(newValue) {
-      console.log("Active tab:", newValue);
+      // console.log("Active tab:", newValue);
     },
   },
 
   methods: {
     handelRemoveTab(index) {
       this.tabs.splice(index, 1);
+
       if (this.tabs.length == 0) {
         this.tab = "Scheme Set";
+      } else {
+        this.tab = this.tabs[index - 1].id;
+
+        // console.log(this.tabs[this.tabs.length - 1].id);
       }
     },
     handelAddNewTab(item) {
-      this.tabs.push(item);
+      const existingTab = this.tabs.filter((tabItem) => tabItem.id == item.id);
+
+      if (existingTab.length > 0) {
+        console.log("exist");
+        this.tab = existingTab[0].id;
+      } else {
+        console.log("not exist");
+        this.tabs.push(item);
+        this.tab = item.id;
+      }
     },
     handelSearch(event) {
       console.log(event.target.value);
