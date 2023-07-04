@@ -35,6 +35,10 @@
 <script>
 export default {
   props: {
+    isDuplicate: {
+      type: Boolean,
+      required: true,
+    },
     dataObject: {
       type: Object,
       required: true,
@@ -51,8 +55,12 @@ export default {
     };
   },
   mounted() {
-    if (this.dataObject.displayName == undefined) {
+    // console.log(this.isDuplicate);
+    if (!this.isDuplicate) {
       console.log("new scheme");
+      this.SchemeName = "";
+      this.DisplayName = "";
+      this.selectedValue = "";
     } else {
       console.log("dup scheme");
       this.newScheme = this.dataObject;

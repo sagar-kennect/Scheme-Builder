@@ -79,7 +79,7 @@
                 </v-switch>
               </div>
               <v-btn
-                @click="createSchemeDialog = true"
+                @click="() => handelCreateNewScheme()"
                 variant="outlined"
                 class="ml-auto bg-black"
               >
@@ -157,6 +157,7 @@
     <v-dialog v-model="createSchemeDialog" width="500"
       ><CreateScheme
         :dataObject="duplicateScheme"
+        :isDuplicate="isDuplicate"
         @child-event="handleChildEvent"
       />
     </v-dialog>
@@ -189,13 +190,13 @@ export default {
     selectedValue: "Filter",
     createSchemeDialog: false,
     duplicateScheme: {},
+    isDuplicate: false,
   }),
   watch: {
     tab(newValue) {
       // console.log("Active tab:", newValue);
     },
   },
-
   methods: {
     handelRemoveTab(index) {
       // this.tab = 1001;
@@ -213,7 +214,6 @@ export default {
         this.tab = item.id;
       }
     },
-
     handelSearch(event) {
       console.log(event.target.value);
       const searchQuery = event.target.value;
@@ -221,7 +221,6 @@ export default {
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     },
-
     handelFilter(event) {
       this.selectedValue = event.target.getAttribute("value");
       console.log(this.selectedValue);
@@ -237,10 +236,24 @@ export default {
       }
     },
     handleChildEvent(payload) {
-      (this.createSchemeDialog = false), this.tableData.push(payload);
+      let isSchemExist = this.tableData.filter(
+        (item) => item.name == payload.name
+      );
+      // console.log(isSchemExist.length > 0);
+
+      if (isSchemExist.length > 0) {
+        alert("Scheme Name Should be uniq");
+      } else {
+        (this.createSchemeDialog = false), this.tableData.push(payload);
+      }
+    },
+    handelCreateNewScheme() {
+      this.isDuplicate = false;
+      this.createSchemeDialog = true;
     },
     handleCopyScheme(data) {
       this.duplicateScheme = data;
+      this.isDuplicate = true;
       this.createSchemeDialog = true;
     },
   },
