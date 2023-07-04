@@ -5,15 +5,10 @@
         <v-tab
           value="Scheme Setting"
           density="compact"
-          class="mr-2"
-          style="border: 1px solid gray"
+          class="mr-2 border_solid_1"
           >Scheme Setting</v-tab
         >
-        <v-tab
-          value="Scheme Set"
-          density="compact"
-          class="mr-2"
-          style="border: 1px solid gray"
+        <v-tab value="Scheme Set" density="compact" class="mr-2 border_solid_1"
           >Scheme Set</v-tab
         >
         <v-tab
@@ -21,8 +16,7 @@
           :key="tab.id"
           density="compact"
           :value="tab.id"
-          class="mr-2"
-          style="border: 1px solid gray; border-radius: 50px"
+          class="mr-2 rounded-xl border_solid_1"
           >{{ tab.name }}
           <v-icon
             :icon="mdiCloseCircleOutline"
@@ -46,13 +40,7 @@
                 @input="handelSearch($event)"
                 type="text"
                 placeholder="Search"
-                class="mr-3 px-2 rounded"
-                style="
-                  border: 1px solid black;
-                  outline: none;
-                  height: 35px;
-                  width: 400px;
-                "
+                class="mr-3 px-2 rounded border_solid_1 input_search"
               />
               <v-menu>
                 <template v-slot:activator="{ props }">
@@ -95,7 +83,7 @@
                     <td>
                       <div
                         @click="handelAddNewTab(item)"
-                        style="cursor: pointer"
+                        class="cursor_pointer"
                       >
                         <p>{{ item.name }}</p>
                         <p class="text-caption">{{ item.displayName }}</p>
@@ -239,7 +227,6 @@ export default {
       let isSchemExist = this.tableData.filter(
         (item) => item.name == payload.name
       );
-      // console.log(isSchemExist.length > 0);
 
       if (isSchemExist.length > 0) {
         alert("Scheme Name Should be uniq");
@@ -273,5 +260,16 @@ export default {
   cursor: pointer;
   scale: 1.2;
   transition: all 0.3s;
+}
+.border_solid_1 {
+  border: 1px solid gray;
+}
+.input_search {
+  outline: none;
+  height: 35px;
+  width: 400px;
+}
+.cursor_pointer {
+  cursor: pointer;
 }
 </style>
