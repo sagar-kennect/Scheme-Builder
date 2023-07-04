@@ -11,8 +11,6 @@
   </v-card>
 </template>
 <script>
-import { useCounterStore } from "../composables/store/counter.ts";
-const store = useCounterStore();
 export default {
   data: () => ({
     tabs: [1, 2, 3, 4],
