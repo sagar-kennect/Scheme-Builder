@@ -108,7 +108,9 @@
                       >
                         <div
                           :class="`${
-                            item.type === 'KPI' ? 'bg-green ' : 'bg-blue '
+                            item.type.toLocaleLowerCase() === 'kpi'
+                              ? 'bg-green '
+                              : 'bg-blue '
                           } accent-3 text-center rounded-xl py-1`"
                           style="width: 70px"
                         >
@@ -153,7 +155,10 @@
       </v-window>
     </v-card>
     <v-dialog v-model="createSchemeDialog" width="500"
-      ><CreateScheme @child-event="handleChildEvent" />
+      ><CreateScheme
+        :dataObject="duplicateScheme"
+        @child-event="handleChildEvent"
+      />
     </v-dialog>
   </div>
 </template>
@@ -183,6 +188,7 @@ export default {
     mdiDotsVertical,
     selectedValue: "Filter",
     createSchemeDialog: false,
+    duplicateScheme: {},
   }),
   watch: {
     tab(newValue) {
@@ -192,15 +198,8 @@ export default {
 
   methods: {
     handelRemoveTab(index) {
+      // this.tab = 1001;
       this.tabs.splice(index, 1);
-
-      if (this.tabs.length == 0) {
-        this.tab = "Scheme Set";
-      } else {
-        this.tab = this.tabs[index - 1].id;
-
-        // console.log(this.tabs[this.tabs.length - 1].id);
-      }
     },
     handelAddNewTab(item) {
       const existingTab = this.tabs.filter((tabItem) => tabItem.id == item.id);
@@ -214,6 +213,7 @@ export default {
         this.tab = item.id;
       }
     },
+
     handelSearch(event) {
       console.log(event.target.value);
       const searchQuery = event.target.value;
@@ -239,14 +239,9 @@ export default {
     handleChildEvent(payload) {
       (this.createSchemeDialog = false), this.tableData.push(payload);
     },
-    async handleCopyScheme(data) {
-      const str = JSON.stringify(data);
-      try {
-        await navigator.clipboard.writeText(str);
-        alert("Object copied to clipboard!");
-      } catch (err) {
-        console.error("Failed to copy object: ", err);
-      }
+    handleCopyScheme(data) {
+      this.duplicateScheme = data;
+      this.createSchemeDialog = true;
     },
   },
 };

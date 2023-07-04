@@ -8,15 +8,15 @@
         density="compact"
         variant="outlined"
         name="name"
-        @input="handelInputChange"
+        v-model="SchemeName"
         placeholder="Scheme Name"
       ></v-text-field>
       <v-text-field
         density="compact"
         variant="outlined"
         name="displayName"
-        @input="handelInputChange"
         placeholder="Scheme Name"
+        v-model="DisplayName"
       ></v-text-field>
       <v-select
         variant="outlined"
@@ -34,19 +34,42 @@
 
 <script>
 export default {
+  props: {
+    dataObject: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       dialogVisible: true,
       selectedValue: "",
       newScheme: {},
+      SchemeName: this.dataObject.name,
+      DisplayName: this.dataObject.displayName,
+      selectedValue: this.dataObject.type,
     };
   },
+  mounted() {
+    if (this.dataObject.displayName == undefined) {
+      console.log("new scheme");
+    } else {
+      console.log("dup scheme");
+      this.newScheme = this.dataObject;
+    }
+  },
+
   methods: {
     emitEvent() {
-      if (this.newScheme.name == undefined) {
+      if (this.SchemeName == undefined) {
         alert("Please fill all Sections");
       } else {
-        this.newScheme = { ...this.newScheme, type: this.selectedValue };
+        this.newScheme = {
+          ...this.newScheme,
+          type: this.selectedValue,
+          name: this.SchemeName,
+          displayName: this.DisplayName,
+        };
         this.$emit("child-event", this.newScheme);
       }
     },

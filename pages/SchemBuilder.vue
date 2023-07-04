@@ -11,12 +11,16 @@
   </v-card>
 </template>
 <script>
+import { useCounterStore } from "../composables/store/counter.ts";
+const store = useCounterStore();
 export default {
   data: () => ({
     tabs: [1, 2, 3, 4],
     tab: null,
   }),
-
+  mounted() {
+    console.log(this.store);
+  },
   watch: {
     tabs(val) {
       this.tab = val - 1;
