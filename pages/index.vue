@@ -182,12 +182,20 @@ export default {
   }),
   watch: {
     tab(newValue) {
-      // console.log("Active tab:", newValue);
+      if (newValue == undefined) {
+        if (this.tabs.length > 0) {
+          let size = this.tabs.length;
+          this.tab = this.tabs[size - 1]?.id;
+        } else {
+          this.tab = "Scheme Set";
+        }
+      }
+      console.log(this.tabs[0]?.id);
+      console.log("Active tab:", newValue);
     },
   },
   methods: {
     handelRemoveTab(index) {
-      // this.tab = 1001;
       this.tabs.splice(index, 1);
     },
     handelAddNewTab(item) {
